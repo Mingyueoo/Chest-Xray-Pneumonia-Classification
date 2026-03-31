@@ -1,0 +1,34 @@
+# --- 核心：排除数据集 ---
+# 排除整个 data 文件夹及其子目录
+data/
+
+# --- 排除模型权重文件 ---
+# 你的项目里已经出现了 model.pth，这类大文件通常也不上传
+*.pth
+*.h5
+*.weights
+*.onnx
+
+# --- 排除 Python 虚拟环境 ---
+venv/
+.venv/
+env/
+bin/
+include/
+lib/
+share/
+
+# --- 排除 Python 缓存和运行日志 ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- 排除 IDE 配置文件 ---
+.vscode/
+.idea/
+
+# --- 排除系统日志或临时文件 ---
+*.log
+.DS_Store
