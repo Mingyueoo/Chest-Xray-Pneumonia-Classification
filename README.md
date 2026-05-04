@@ -118,6 +118,33 @@ MedImage-AI-Demo/
 | ![Fig4](examples/Figure_4.png) | ![Fig5](examples/Figure_5.png) | ![Fig6](examples/Figure_6.png) |
 | **Pred: PNEUMONIA** | **Pred: NORMAL** | **Pred: PNEUMONIA** |
 | (Label: PNEUMONIA) | (Label: NORMAL) | (Label: NORMAL) |
+## Clinical Evaluation Analysis
+
+| Metric | Value |
+|--------|-------|
+| Accuracy | 85.42% |
+| Sensitivity (Pneumonia Recall) | 94.62% |
+| Specificity (Normal Recall) | 70.09% |
+| ROC AUC | 0.9264 |
+
+### Key Finding: Why Accuracy Alone Is Insufficient for Clinical AI
+
+High aggregate accuracy (85.4%) conceals a clinically significant 
+asymmetry: while the model reliably detects pneumonia cases 
+(sensitivity 94.6%), it misclassifies 30% of normal patients as 
+pneumonia-positive. In a screening context, this false-positive 
+rate would generate substantial unnecessary follow-up burden.
+
+Notably, AUC=0.926 indicates strong discriminative capacity — the 
+performance gap is not a model quality issue, but a threshold 
+calibration problem. Default decision boundaries (p=0.5) are not 
+optimised for clinical risk profiles where false-negative and 
+false-positive costs are asymmetric.
+
+This analysis motivates a broader question directly relevant to 
+clinical AI deployment: structured evaluation frameworks must define 
+metrics and thresholds relative to deployment context, not benchmark 
+convention.
 
 ## Notes
 
