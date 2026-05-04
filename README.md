@@ -59,6 +59,12 @@ Evaluation:
 python -m src.evaluate
 ```
 
+Detailed analysis:
+
+```bash
+python -m src.analysis
+```
+
 Prediction visualization:
 
 ```bash
@@ -97,3 +103,4 @@ MedImage-AI-Demo/
 - Training now uses the `val` split to track validation performance.
 - The best validation checkpoint is saved to `model.pth`.
 - Scripts are designed to be run as modules from the project root.
+- `src.analysis` saves `examples/confusion_matrix.png` and `examples/roc_curve.png`.
