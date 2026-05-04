@@ -1,129 +1,99 @@
 # Chest-Xray-Pneumonia-Classification
 
-**Chest X-ray Pneumonia Detection using Deep Learning (PyTorch)**
+Chest X-ray pneumonia detection using deep learning with PyTorch.
 
----
+## Project Overview
 
-## 📌 Project Overview
+This project demonstrates an end-to-end medical image classification pipeline using chest X-ray images. The task is binary classification between `NORMAL` and `PNEUMONIA`.
 
-This project demonstrates an end-to-end deep learning pipeline for medical image classification using chest X-ray images. The goal is to classify images into **NORMAL** and **PNEUMONIA** categories.
-
-The project showcases practical skills in medical imaging, deep learning model development, and real-world dataset handling.
-
----
-
-## 🧠 Key Features
+## Key Features
 
 - Medical image preprocessing pipeline
-- CNN-based classification model (PyTorch)
-- Training and evaluation on real-world dataset
-- Model performance evaluation (accuracy)
-- Visualization of predictions
-- Modular and reproducible code structure
+- CNN-based classification model in PyTorch
+- Training, validation, and test evaluation
+- Prediction visualization
+- Simple realtime webcam demo
 
----
+## Dataset
 
-## 📊 Dataset
-The dataset used in this project is the **Chest X-Ray Images (Pneumonia)** dataset, provided by Paul Mooney on Kaggle.
+The project uses the Kaggle Chest X-Ray Images (Pneumonia) dataset:
 
-- **Source:** [Kaggle - Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia/data)
-- **Content:** The dataset is organized into 3 folders (train, test, val) and contains subfolders for each image category (Pneumonia/Normal). 
+- Source: https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia/data
+- Expected layout:
 
-### How to access the data:
-1. Download the dataset from the Kaggle link above.
-2. Extract the ZIP file.
-3. Place the `chest_xray` folder into the `data/` directory of this project.
-
-**Note:** The `data/` folder is included in `.gitignore` to avoid uploading large binary files to GitHub.
-
----
-## ⚙️ Model Architecture
-
-- Convolutional Neural Network (CNN)
-- 2 Convolution layers + MaxPooling
-- Fully connected classification layers
-
----
-
-## 🚀 Training
-
-```bash
-python src/train.py
-```
-- Trained for 5 epochs
-- Final training loss: ~0.05
-
-### Result:
-- Test Accuracy: 79.97%
-
----
-## 🎥 Prediction & Visualization
-
-The following gallery showcases a selection of random prediction results from the test set. These examples demonstrate the model's ability to distinguish between NORMAL lung structures and the opacities characteristic of PNEUMONIA.
-```bash
-python src/predict.py
+```text
+data/
+  chest_xray/
+    train/
+      NORMAL/
+      PNEUMONIA/
+    val/
+      NORMAL/
+      PNEUMONIA/
+    test/
+      NORMAL/
+      PNEUMONIA/
 ```
 
-Example outputs:
+## Model
 
-| Prediction | Ground Truth |
-| ---------- | ------------ |
-| PNEUMONIA  | NORMAL       |
-| NORMAL     | NORMAL       |
+The current model is a small custom CNN:
 
+- 2 convolution layers
+- Max pooling after each convolution
+- 2 fully connected layers
 
-(See `/examples` folder for sample outputs)
+Input images are resized to `128x128`.
 
-| Case 1 (Normal) | Case 2 (Normal) | Case 3 (Normal) |
-| :---: | :---: | :---: |
-| ![Fig1](examples/Figure_1.png) | ![Fig2](examples/Figure_2.png) | ![Fig3](examples/Figure_3.png) |
-| **Pred: PNEUMONIA** | **Pred: PNEUMONIA** | **Pred: NORMAL** |
-| (Label: NORMAL) | (Label: NORMAL) | (Label: NORMAL) |
+## Run
 
-| Case 4 (Pneumonia) | Case 5 (Normal) | Case 6 (Pneumonia) |
-| :---: | :---: | :---: |
-| ![Fig4](examples/Figure_4.png) | ![Fig5](examples/Figure_5.png) | ![Fig6](examples/Figure_6.png) |
-| **Pred: PNEUMONIA** | **Pred: NORMAL** | **Pred: PNEUMONIA** |
-| (Label: PNEUMONIA) | (Label: NORMAL) | (Label: NORMAL) |
+Train:
 
----
-## 📁 Project Structure
+```bash
+python -m src.train
+```
+
+Evaluation:
+
+```bash
+python -m src.evaluate
+```
+
+Prediction visualization:
+
+```bash
+python -m src.predict
+```
+
+Realtime inference:
+
+```bash
+python -m src.realtime_inference
+```
+
+Press `q` to close the webcam window.
+
+## Project Structure
+
 ```text
 MedImage-AI-Demo/
-│
-├─ data/
-│   └─ chest_xray/
-├─ examples/
-├─ src/
-│   ├─ dataset.py
-│   ├─ model.py
-│   ├─ train.py
-│   ├─ evaluate.py
-│   └─ predict.py
-│
-├─ model.pth
-├─ requirements.txt
-└─ README.md
+|-- data/
+|   `-- chest_xray/
+|-- examples/
+|-- src/
+|   |-- dataset.py
+|   |-- model.py
+|   |-- train.py
+|   |-- evaluate.py
+|   |-- predict.py
+|   `-- realtime_inference.py
+|-- model.pth
+|-- requirements.txt
+`-- README.md
 ```
----
-## 🛠️ Technologies Used
-- Python
-- PyTorch
-- OpenCV
-- Matplotlib
-- NumPy
----
-## 💡 Key Learnings
-- Built an end-to-end deep learning pipeline for medical image classification
-- Worked with real-world medical imaging datasets
-- Implemented model training, evaluation, and visualization
-- Gained experience in CNN-based image analysis
----
-## 📌 Future Improvements
-- Use pre-trained models (ResNet, EfficientNet)
-- Add data augmentation
-- Improve model generalization
-- Deploy as a web-based application
----
-## 📝 License
-This project is for educational and demonstration purposes.
+
+## Notes
+
+- Training now uses the `val` split to track validation performance.
+- The best validation checkpoint is saved to `model.pth`.
+- Scripts are designed to be run as modules from the project root.

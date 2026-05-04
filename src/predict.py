@@ -1,28 +1,37 @@
-# @Version :1.0
-# @Author  : Mingyue
-# @File    : predict.py
-# @Time    : 30/03/2026 22:11
 import matplotlib.pyplot as plt
 import torch
-from dataset import get_dataloader
-from model import SimpleCNN
+
+from src.dataset import get_dataloader
+from src.model import SimpleCNN
+
+TEST_DIR = "data/chest_xray/test"
+MODEL_PATH = "model.pth"
+NUM_EXAMPLES = 6
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-loader, classes = get_dataloader("data/chest_xray/test", batch_size=1)
 
-model = SimpleCNN(num_classes=2)
-model.load_state_dict(torch.load("model.pth"))
-model.to(device)
-model.eval()
+def main():
+    loader, classes = get_dataloader(TEST_DIR, batch_size=1, shuffle=True)
 
-for i, (img, label) in enumerate(loader):
-    img = img.to(device)
-    pred = torch.argmax(model(img), dim=1).item()
+    model = SimpleCNN(num_classes=len(classes))
+    model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+    model.to(device)
+    model.eval()
 
-    plt.imshow(img.cpu().squeeze().permute(1,2,0))
-    plt.title(f"Pred: {classes[pred]}, True: {classes[label.item()]}")
-    plt.show()
+    for i, (img, label) in enumerate(loader):
+        img = img.to(device)
+        with torch.no_grad():
+            pred = torch.argmax(model(img), dim=1).item()
 
-    if i == 5:
-        break
+        plt.imshow(img.cpu().squeeze().permute(1, 2, 0))
+        plt.title(f"Pred: {classes[pred]}, True: {classes[label.item()]}")
+        plt.axis("off")
+        plt.show()
+
+        if i + 1 >= NUM_EXAMPLES:
+            break
+
+
+if __name__ == "__main__":
+    main()

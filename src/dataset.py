@@ -1,20 +1,18 @@
-# @Version :1.0
-# @Author  : Mingyue
-# @File    : dataset.py
-# @Time    : 31/03/2026 18:18
-
-import os
-from torchvision import transforms
 from torch.utils.data import DataLoader
+from torchvision import transforms
 from torchvision.datasets import ImageFolder
 
-def get_dataloader(data_dir, batch_size=32):
-    transform = transforms.Compose([
-        transforms.Resize((128, 128)),
+IMAGE_SIZE = (128, 128)
+
+
+def build_transform():
+    return transforms.Compose([
+        transforms.Resize(IMAGE_SIZE),
         transforms.ToTensor(),
     ])
 
-    dataset = ImageFolder(root=data_dir, transform=transform)
-    loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
+def get_dataloader(data_dir, batch_size=32, shuffle=False):
+    dataset = ImageFolder(root=data_dir, transform=build_transform())
+    loader = DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
     return loader, dataset.classes
