@@ -97,6 +97,27 @@ MedImage-AI-Demo/
 |-- requirements.txt
 `-- README.md
 ```
+## Example outputs:
+
+| Prediction | Ground Truth |
+| ---------- | ------------ |
+| PNEUMONIA  | NORMAL       |
+| NORMAL     | NORMAL       |
+
+
+(See `/examples` folder for sample outputs)
+
+| Case 1 (Normal) | Case 2 (Normal) | Case 3 (Normal) |
+| :---: | :---: | :---: |
+| ![Fig1](examples/Figure_1.png) | ![Fig2](examples/Figure_2.png) | ![Fig3](examples/Figure_3.png) |
+| **Pred: PNEUMONIA** | **Pred: PNEUMONIA** | **Pred: NORMAL** |
+| (Label: NORMAL) | (Label: NORMAL) | (Label: NORMAL) |
+
+| Case 4 (Pneumonia) | Case 5 (Normal) | Case 6 (Pneumonia) |
+| :---: | :---: | :---: |
+| ![Fig4](examples/Figure_4.png) | ![Fig5](examples/Figure_5.png) | ![Fig6](examples/Figure_6.png) |
+| **Pred: PNEUMONIA** | **Pred: NORMAL** | **Pred: PNEUMONIA** |
+| (Label: PNEUMONIA) | (Label: NORMAL) | (Label: NORMAL) |
 
 ## Notes
 
